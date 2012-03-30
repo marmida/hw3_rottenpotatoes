@@ -34,14 +34,17 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   And I should not see "The Help"
   And I should not see "Aladdin"
 
-Scenario: no ratings selected
-  When I uncheck the following ratings: G, PG-13, NC-17, PG, R
+Scenario: all ratings selected
+  When I check the following ratings: G, PG-13, NC-17, PG, R
   And I press "Refresh"
   Then I should be on the RottenPotatoes home page
   And I should see all of the movies
 
-Scenario: all ratings selected
+# because of the bugs in the application, there's no good way to do this without exploiting bad UX
+Scenario: no ratings selected
   When I check the following ratings: G, PG-13, NC-17, PG, R
+  And I press "Refresh"
+  And I uncheck the following ratings: G, PG-13, NC-17, PG, R
   And I press "Refresh"
   Then I should be on the RottenPotatoes home page
   And I should see all of the movies
